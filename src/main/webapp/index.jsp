@@ -15,6 +15,6 @@
   <br>
   <a href="/lectures">Лекции</a>
   <br>
-  <a href="/wiring.jsp">Привязка</a>
+  <a href="/wiring">Привязка</a>
   </body>
 </html>

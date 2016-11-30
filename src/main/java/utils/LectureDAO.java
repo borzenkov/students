@@ -21,6 +21,31 @@ public class LectureDAO {
     private static ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static List<Lecture> lectures = new LinkedList<>();
 
+    public static void addLecture(Lecture lecture) {
+        Connection connection = connectionPool.getConnection();
+        try {
+            PreparedStatement statement = connection.prepareStatement("insert into lectures (topic, date) values (?, ?)");
+            statement.setString(1, lecture.getTopic());
+            statement.setString(2, lecture.getDate());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void editLecture(Lecture lecture) {
+        Connection connection = connectionPool.getConnection();
+        try {
+            PreparedStatement statement = connection.prepareStatement("update lectures set topic = ?, date = ? where id = ?");
+            statement.setString(1, lecture.getTopic());
+            statement.setString(2, lecture.getDate());
+            statement.setInt(3, lecture.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static Lecture getLecture(int id) {
         Connection connection = connectionPool.getConnection();
         try {
@@ -57,5 +82,16 @@ public class LectureDAO {
             e.printStackTrace();
         }
         return lectures;
+    }
+
+    public static void deleteLecture(int id) {
+        Connection connection = connectionPool.getConnection();
+        try {
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM lectures WHERE id = ?");
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

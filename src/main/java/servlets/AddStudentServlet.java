@@ -5,6 +5,7 @@ package servlets;
  */
 import entities.Student;
 import utils.ConnectionPool;
+import utils.StudentDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,8 +25,6 @@ import java.sql.SQLException;
 @WebServlet("/addStudent")
 public class AddStudentServlet extends HttpServlet {
 
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -35,16 +34,12 @@ public class AddStudentServlet extends HttpServlet {
         String gender = req.getParameter("gender");
         String group_number = req.getParameter("group_number");
 
-        Connection connection = connectionPool.getConnection();
-        try {
-            PreparedStatement statement = connection.prepareStatement("insert into students (name, gender, group_number) values (?, ?, ?)");
-            statement.setString(1, name);
-            statement.setString(2, gender);
-            statement.setString(3, group_number);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Student student = new Student();
+        student.setName(name);
+        student.setGender(gender);
+        student.setGroupNumber(group_number);
+
+        StudentDAO.addStudent(student);
 
         resp.sendRedirect("/students");
     }

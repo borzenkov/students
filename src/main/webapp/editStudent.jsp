@@ -8,7 +8,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<c:set var="student" scope="session" value="${2000*2}"/>
 <html>
 <head>
     <title>Title</title>
@@ -36,5 +35,6 @@
     </p>
     <input type="submit">
 </form>
+<a href="deleteStudent?id=${student.getId()}">Удалить студента</a>
 </body>
 </html>

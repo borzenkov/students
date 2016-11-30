@@ -9,6 +9,15 @@ public class Student {
     private String gender;
     private String groupNumber;
     private int id;
+    private int visits;
+
+    public int getVisits() {
+        return visits;
+    }
+
+    public void setVisits(int visits) {
+        this.visits = visits;
+    }
 
     public int getId() {
         return id;
@@ -49,6 +58,8 @@ public class Student {
                 .append(gender)
                 .append(" ")
                 .append(groupNumber)
+                .append(" ")
+                .append(visits)
                 .toString();
     }
 }
